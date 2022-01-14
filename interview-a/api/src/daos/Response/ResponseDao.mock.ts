@@ -1,32 +1,31 @@
-import { ISurveyResponse } from '@entities/SurveyResponse';
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import SurveyResponse, { ISurveyResponse } from '@entities/SurveyResponse';
 import { getRandomInt } from '@shared/functions';
 import { IResponseDao } from './ResponseDao';
-import MockDaoMock from '../MockDb/MockDao.mock';
-
-
+import MockDaoMock, { IDatabase } from '../MockDb/MockDao.mock';
 
 class ResponseDao extends MockDaoMock implements IResponseDao {
 
 
-    public async getOne(id: number): Promise<ISurveyResponse | null> {
-        const db = await super.openDb();
+    public async getOne(id: number): Promise<ISurveyResponse | null | unknown> {
+        const db: IDatabase = await super.openDb();
         for (const response of db.responses) {
             if (response.id === id) {
-                return response;
+                return response as unknown;
             }
         }
         return null;
     }
 
 
-    public async getAll(): Promise<ISurveyResponse[]> {
-        const db = await super.openDb();
-        return db.responses;
+    public async getAll(): Promise<ISurveyResponse[] | unknown> {
+        const db: IDatabase = await super.openDb();
+        return db.responses as unknown;
     }
 
 
     public async add(Response: ISurveyResponse): Promise<void> {
-        const db = await super.openDb();
+        const db: IDatabase = await super.openDb();
         Response.id = getRandomInt();
         Response.completed ||= new Date();
         db.responses.push(Response);
@@ -35,7 +34,7 @@ class ResponseDao extends MockDaoMock implements IResponseDao {
 
 
     public async update(Response: ISurveyResponse): Promise<void> {
-        const db = await super.openDb();
+        const db: IDatabase = await super.openDb();
         for (let i = 0; i < db.responses.length; i++) {
             if (db.responses[i].id === Response.id) {
                 db.responses[i] = Response;
@@ -48,7 +47,7 @@ class ResponseDao extends MockDaoMock implements IResponseDao {
 
 
     public async delete(id: number): Promise<void> {
-        const db = await super.openDb();
+        const db: IDatabase = await super.openDb();
         for (let i = 0; i < db.responses.length; i++) {
             if (db.responses[i].id === id) {
                 db.responses.splice(i, 1);

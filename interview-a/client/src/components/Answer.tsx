@@ -1,11 +1,13 @@
 interface AnswerProps {
-    answer: string;
+    answer: string | any;
     group: string;
     onSelection?: (answer: string) => any;
+    checked: string;
 }
 
-const Answer = ({ answer, group, onSelection }: AnswerProps) => {
-    const onClickAnswer = () => {
+const Answer = ({ answer, group, onSelection, checked }: AnswerProps) => {
+    const onClickAnswer = (e: React.FormEvent<HTMLFormElement>) => {
+      e.stopPropagation();
         if (onSelection) {
             onSelection(answer);
         }
@@ -17,7 +19,9 @@ const Answer = ({ answer, group, onSelection }: AnswerProps) => {
                 <input value={ answer }
                        type="radio"
                        name={ group }
-                       onClick={ _event => onClickAnswer() }/>
+                       onChange={ (_event: any) => onClickAnswer(_event) }
+                       checked={checked === answer}
+                />{' '}
                 { answer }
             </label>
         </div>

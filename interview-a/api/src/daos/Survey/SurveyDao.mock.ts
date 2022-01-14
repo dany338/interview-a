@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { ISurvey } from '@entities/Survey';
 import { getRandomInt } from '@shared/functions';
 import { ISurveyDao } from './SurveyDao';
@@ -8,20 +9,20 @@ import MockDaoMock from '../MockDb/MockDao.mock';
 class SurveyDao extends MockDaoMock implements ISurveyDao {
 
 
-    public async getOne(id: number): Promise<ISurvey | null> {
+    public async getOne(id: number): Promise<ISurvey | null | unknown> {
         const db = await super.openDb();
         for (const survey of db.surveys) {
             if (survey.id === id) {
-                return survey;
+                return survey as unknown;
             }
         }
         return null;
     }
 
 
-    public async getAll(): Promise<ISurvey[]> {
+    public async getAll(): Promise<ISurvey[] | unknown> {
         const db = await super.openDb();
-        return db.surveys;
+        return db.surveys as unknown;
     }
 
 

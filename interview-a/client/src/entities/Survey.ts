@@ -1,6 +1,10 @@
+export interface IAnswer {
+    answer: string;
+    count: number;
+}
 export interface IQuestion {
     question: string;
-    answers: string[];
+    answers: string[] | IAnswer[];
 }
 interface IContent {
     questions: IQuestion[]
@@ -9,6 +13,28 @@ export interface ISurvey {
     id: number;
     name: string;
     content: IContent;
+}
+
+export interface IInfoAlertProps {
+  variant: string;
+  message: string;
+}
+
+export interface ISurveysProps {
+  surveys: Survey[]
+}
+
+export interface IQuestionsProps {
+  id: string;
+  question: IQuestion
+}
+
+export interface ICardAnswerContainerProps {
+  image: string;
+};
+
+export interface ICardAnswerProps {
+  answer: IAnswer | any;
 }
 
 class Survey implements ISurvey {

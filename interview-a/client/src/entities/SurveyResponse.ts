@@ -8,6 +8,7 @@ interface IContent {
 export interface ISurveyResponse {
     id: number;
     content: IContent;
+    completed?: Date;
 }
 
 class SurveyResponse implements ISurveyResponse {

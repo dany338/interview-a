@@ -2,7 +2,7 @@ import jsonfile from 'jsonfile';
 import { ISurvey } from '@entities/Survey';
 import { ISurveyResponse } from '@entities/SurveyResponse'
 
-interface IDatabase {
+export interface IDatabase {
     surveys: ISurvey[];
     responses: ISurveyResponse[];
 }
