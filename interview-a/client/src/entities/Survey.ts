@@ -22,6 +22,10 @@ export interface IInfoAlertProps {
 
 export interface ISurveysProps {
   surveys: Survey[]
+  query: any | string;
+  loading: boolean;
+  onChangeQuery: (value: string) => void;
+  onSearchBySurvey: () => void;
 }
 
 export interface IQuestionsProps {
@@ -36,6 +40,29 @@ export interface ICardAnswerContainerProps {
 export interface ICardAnswerProps {
   answer: IAnswer | any;
 }
+
+export interface ISearchBarProps {
+  placeholder: string;
+  value?: string;
+  count: number;
+  onChangeQuery: (value: any) => void;
+  onSearchBySurvey: any | (() => void);
+};
+
+export interface IMenuProps {
+  open: boolean;
+};
+
+export interface IMenuItemLinkProps {
+  active: string | boolean;
+  onClick: (e: any) => void;
+};
+
+export interface ISurveyLinkViewProps {
+  finished: boolean;
+  surveyId: number;
+  onResetSurvey: () => void;
+};
 
 class Survey implements ISurvey {
 

@@ -6,6 +6,6 @@ export const pErr = (err: Error) => {
     }
 };
 
-type NewType = number;
+type NewType = number | bigint;
 
 export const getRandomInt = (): NewType => Math.floor(Math.random() * 1_000_000_000_000);

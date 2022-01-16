@@ -26,7 +26,8 @@ class ResponseDao extends MockDaoMock implements IResponseDao {
 
     public async add(Response: ISurveyResponse): Promise<void> {
         const db: IDatabase = await super.openDb();
-        Response.id = getRandomInt();
+        const id: number | bigint = getRandomInt();
+        Response.id = id;
         Response.completed ||= new Date();
         db.responses.push(Response);
         await super.saveDb(db);

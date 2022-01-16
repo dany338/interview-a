@@ -28,7 +28,8 @@ class SurveyDao extends MockDaoMock implements ISurveyDao {
 
     public async add(Survey: ISurvey): Promise<void> {
         const db = await super.openDb();
-        Survey.id = getRandomInt();
+        const id: number | bigint = getRandomInt();
+        Survey.id = id;
         db.surveys.push(Survey);
         await super.saveDb(db);
     }

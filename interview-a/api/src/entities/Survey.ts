@@ -6,18 +6,18 @@ interface IContent {
     questions: IQuestion[]
 }
 export interface ISurvey {
-    id: number;
+    id: number | bigint;
     name: string;
     content: IContent;
 }
 
 class Survey implements ISurvey {
 
-    public id: number;
+    public id: number | bigint;
     public name: string;
     public content: IContent;
 
-    constructor(nameOrSurvey: string | ISurvey, content?: IContent, id?: number) {
+    constructor(nameOrSurvey: string | ISurvey, content?: IContent, id?: number | bigint) {
         if (typeof nameOrSurvey === 'string') {
             this.name = nameOrSurvey;
             this.content = content || {"questions":[]};

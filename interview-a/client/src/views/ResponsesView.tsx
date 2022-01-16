@@ -4,11 +4,23 @@ import { Container } from './styled';
 import Surveys from '../components/Surveys';
 
 const ResponsesView = () => {
-  const [ surveys ] = useSurveysResponses();
+  const [
+    surveysFiltered,
+    ,
+    ,
+    isLoading,
+    query,
+    onChangeQuery,
+    onSearchBySurvey,
+  ] = useSurveysResponses();
   return (
     <Container>
       <Surveys
-        surveys={surveys}
+        surveys={surveysFiltered}
+        query={query}
+        onChangeQuery={onChangeQuery}
+        onSearchBySurvey={onSearchBySurvey}
+        loading={isLoading}
       />
     </Container>
   )

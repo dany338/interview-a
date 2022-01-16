@@ -6,14 +6,14 @@ interface IContent {
     questions: IQuestion[]
 }
 export interface ISurveyResponse {
-    id: number;
+    id: number | bigint;
     content: IContent;
     completed: Date;
 }
 
 class SurveyResponse implements ISurveyResponse {
 
-    public id: number;
+    public id: number | bigint;
     public content: IContent;
     public completed: Date;
 

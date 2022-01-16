@@ -1,8 +1,9 @@
 import React from 'react';
 import Question from "src/components/Question";
 import { ISurvey, IQuestion, IInfoAlertProps } from "../entities/Survey";
-import {Container, Button, Alert} from 'react-bootstrap';
-import useSurvey from '../hooks/useSurvey';
+import { Button, Alert} from 'react-bootstrap';
+import { Container, Wrapper } from './styled';
+
 interface ISurveyProps {
   surveyId: number;
   survey: ISurvey | null;
@@ -29,6 +30,7 @@ const SurveyView: React.FC<ISurveyProps> = ({
 
     return (
         <Container className="pad-t">
+          <Wrapper>
             <h1>Survey {surveyId}</h1>
             { qAndA }
             
@@ -50,6 +52,7 @@ const SurveyView: React.FC<ISurveyProps> = ({
                   Respond!
               </Button>
             )}
+          </Wrapper>
         </Container>
     )
 }

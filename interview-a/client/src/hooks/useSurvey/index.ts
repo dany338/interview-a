@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { generatePath, useNavigate, useLocation } from "react-router-dom";
 import Survey, { ISurvey } from '../../entities/Survey';
 import SurveyResponse, { ISurveyResponse } from "../../entities/SurveyResponse";
@@ -17,6 +17,15 @@ const useSurvey = () => {
   const [ infoAlert, setInfoAlert ] = useState<IInfoAlertProps | null | unknown | any>(null);
   const [ survey, setSurvey ] = useState<ISurvey | null | any>(null);
   const [ surveyResponse, setSurveyResponse ] = useState<ISurveyResponse| null>(null);
+  const [state, setState] = useState<boolean>(false);
+  const componentMounted = useRef(setState);
+  let wait = null;
+
+  const onResetSurvey = () => {
+    setFinished(false);
+    setSurveyResponse(null);
+    setSurveyId(1);
+  }
 
   const onSurveySubmit = async () => {
     let success = false;
@@ -32,7 +41,7 @@ const useSurvey = () => {
     } else {
       setInfoAlert({ variant: "danger", message: "Should select an answer." });
     }
-    await waitFor(1000);
+    wait = await waitFor(1000);
     setInfoAlert(null);
     if (success) {
       setSurveyId(prevState => (prevState + 1));
@@ -46,7 +55,7 @@ const useSurvey = () => {
       setSurvey(response);
     } else {
       setInfoAlert({ variant: "danger", message: "Survey not found." });
-      await waitFor(1000);
+      wait = await waitFor(1000);
       setInfoAlert(null);
       setSurvey(null);
       setFinished(true);
@@ -71,6 +80,8 @@ const useSurvey = () => {
       loadSurvey();
     }
     return () => {
+      wait = null;
+      componentMounted.current = () => undefined;
     }
   }, [surveyId, pathname]);
 
@@ -81,6 +92,7 @@ const useSurvey = () => {
     infoAlert,
     onSurveySubmit,
     onSurveySelection,
+    onResetSurvey,
   ];
 }
 

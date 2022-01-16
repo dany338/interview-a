@@ -21,14 +21,15 @@ const AppRouter = () => {
     survey,
     infoAlert,
     onSurveySubmit,
-    onSurveySelection
+    onSurveySelection,
+    onResetSurvey,
   ] = useSurvey();
 
   return <Routes location={state?.backgroundLocation || location}>
     <Route path="/" element={<Layout />}>
       <Route index element={
         <Suspense fallback={<span>Loading...</span>}>
-          <SurveyLinkView finished={finished} surveyId={surveyId} />
+          <SurveyLinkView finished={finished} surveyId={surveyId} onResetSurvey={onResetSurvey} />
         </Suspense>
       } />
       <Route path="/survey/:id" element={
