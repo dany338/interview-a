@@ -12,6 +12,7 @@ const useSurveysResponses = () => {
   const [ infoAlert, setInfoAlert ] = useState<IInfoAlertProps | null | any>(null);
   const [ isLoading, setIsLoading ] = useState<boolean>(false);
   const [ query, setQuery ] = useState<string>('');
+  const [didMount, setDidMount] = useState<boolean>(false);
   const [state, setState] = useState<boolean>(false);
   const componentMounted = useRef(setState);
   let wait = null;
@@ -71,8 +72,10 @@ const useSurveysResponses = () => {
   }
 
   useEffect(() => {
+    setDidMount(true);
     loadSurveysResponses();
     return () => {
+      setDidMount(false);
       wait = null;
       componentMounted.current = () => undefined;
     }

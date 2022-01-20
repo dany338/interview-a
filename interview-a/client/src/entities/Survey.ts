@@ -2,6 +2,7 @@ export interface IAnswer {
     answer: string;
     count: number;
 }
+
 export interface IQuestion {
     question: string;
     answers: string[] | IAnswer[];

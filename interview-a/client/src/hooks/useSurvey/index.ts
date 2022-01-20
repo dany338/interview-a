@@ -17,6 +17,7 @@ const useSurvey = () => {
   const [ infoAlert, setInfoAlert ] = useState<IInfoAlertProps | null | unknown | any>(null);
   const [ survey, setSurvey ] = useState<ISurvey | null | any>(null);
   const [ surveyResponse, setSurveyResponse ] = useState<ISurveyResponse| null>(null);
+  const [didMount, setDidMount] = useState<boolean>(false);
   const [state, setState] = useState<boolean>(false);
   const componentMounted = useRef(setState);
   let wait = null;
@@ -76,10 +77,12 @@ const useSurvey = () => {
   };
 
   useEffect(() => {
+    setDidMount(true);
     if(pathname === `/survey/${surveyId}`) {
       loadSurvey();
     }
     return () => {
+      setDidMount(false);
       wait = null;
       componentMounted.current = () => undefined;
     }
